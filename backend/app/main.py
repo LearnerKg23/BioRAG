@@ -1,3 +1,4 @@
+import os
 import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
@@ -17,6 +18,14 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info(f"Starting {settings.APP_NAME} v{settings.APP_VERSION}")
+    # Ensure data directory hierarchy exists on startup
+    os.makedirs(settings.FAISS_INDEX_DIR, exist_ok=True)
+    os.makedirs(os.path.dirname(settings.BM25_INDEX_PATH), exist_ok=True)
+    os.makedirs(settings.RAW_PAPERS_DIR, exist_ok=True)
+    os.makedirs(settings.BENCHMARK_RESULTS_DIR, exist_ok=True)
+    manifest_dir = os.path.dirname(settings.MANIFEST_DB_PATH)
+    if manifest_dir:
+        os.makedirs(manifest_dir, exist_ok=True)
     yield
     logger.info(f"Shutting down {settings.APP_NAME}")
 
