@@ -1,0 +1,47 @@
+[
+  {
+    "question_id": "bio_eval_001",
+    "question": "What is the therapeutic mechanism of dabrafenib in metastatic melanoma?",
+    "category": "drug_mechanism",
+    "ground_truth_pmids": ["38123456", "380001", "PMC10800001", "PMC1001"],
+    "ground_truth_keywords": ["dabrafenib", "BRAF", "V600E", "MAPK", "ERK"],
+    "is_answerable": true,
+    "expected_answer_summary": "Dabrafenib is a selective BRAF inhibitor that blocks hyperactive MAPK signaling in tumors harboring the BRAF V600E mutation."
+  },
+  {
+    "question_id": "bio_eval_002",
+    "question": "How do secondary mutations in NRAS or MEK1 confer resistance to RAF inhibitors?",
+    "category": "resistance_pathway",
+    "ground_truth_pmids": ["38123456", "380002", "PMC10800001", "PMC1002"],
+    "ground_truth_keywords": ["NRAS", "MEK1", "MAPK", "reactivation", "bypass"],
+    "is_answerable": true,
+    "expected_answer_summary": "Secondary mutations in NRAS or MEK1 reactivate the downstream MAPK pathway, bypassing upstream BRAF inhibition."
+  },
+  {
+    "question_id": "bio_eval_003",
+    "question": "Does osimertinib overcome the EGFR T790M gatekeeper mutation in non-small cell lung cancer?",
+    "category": "drug_mechanism",
+    "ground_truth_pmids": ["380002", "PMC1002"],
+    "ground_truth_keywords": ["osimertinib", "EGFR", "T790M", "gatekeeper", "NSCLC"],
+    "is_answerable": true,
+    "expected_answer_summary": "Osimertinib is a third-generation EGFR TKI that selectively binds to and inhibits EGFR harboring the T790M resistance mutation."
+  },
+  {
+    "question_id": "bio_eval_004",
+    "question": "What effect does pembrolizumab combined with chemotherapy have in PD-L1 positive triple-negative breast cancer?",
+    "category": "clinical_trial",
+    "ground_truth_pmids": ["380003", "PMC1003"],
+    "ground_truth_keywords": ["pembrolizumab", "chemotherapy", "PD-L1", "TNBC", "pathological complete response"],
+    "is_answerable": true,
+    "expected_answer_summary": "Pembrolizumab combined with chemotherapy significantly increases pathological complete response rates in PD-L1 positive TNBC."
+  },
+  {
+    "question_id": "bio_eval_005",
+    "question": "What is the recommended lunar regolith extraction protocol for treating cardiac arrhythmias on Mars?",
+    "category": "unanswerable_control",
+    "ground_truth_pmids": [],
+    "ground_truth_keywords": [],
+    "is_answerable": false,
+    "expected_answer_summary": "Insufficient scientific literature exists regarding lunar regolith and Martian cardiac arrhythmias; system must abstain."
+  }
+]
