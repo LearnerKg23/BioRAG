@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+COPY backend/requirements.txt requirements.txt
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 FROM python:3.11-slim
@@ -19,8 +19,11 @@ ENV PATH=/root/.local/bin:$PATH
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/app
 
-COPY app /app/backend/app
-COPY ../data /app/data
+# Initialize data directories
+RUN mkdir -p /app/data/indices/faiss /app/data/indices/bm25 /app/data/raw/papers /app/data/benchmarks/results
+
+COPY backend/app /app/backend/app
+COPY data /app/data
 
 EXPOSE 8000
 

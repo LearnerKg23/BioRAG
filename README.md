@@ -153,10 +153,16 @@ Open `http://localhost:3000` in your browser.
 ### Option 2: Docker Compose Setup
 Run both backend and frontend with a single command:
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 - Frontend UI: `http://localhost:3000`
 - Backend API & Swagger: `http://localhost:8000/docs`
+
+---
+
+### Option 3: Production Cloud Deployment
+For full cloud deployment instructions covering **Render (Backend) + Vercel (Frontend)**, **Cloud VPS with SSL**, and **Hugging Face Spaces**, refer to the detailed guide:
+👉 **[BioRAG Complete Deployment Guide](file:///docs/DEPLOYMENT_GUIDE.md)**
 
 ---
 

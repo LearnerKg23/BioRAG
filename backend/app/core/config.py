@@ -9,10 +9,11 @@ class Settings(BaseSettings):
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = True
     
-    # Redirect model caches to D: drive
-    os.environ["HF_HOME"] = "D:/hf_cache"
-    os.environ["TORCH_HOME"] = "D:/torch_cache"
-    os.environ["SENTENCE_TRANSFORMERS_HOME"] = "D:/hf_cache"
+    # Redirect model caches to D: drive on Windows if present, or honor existing env
+    if os.name == 'nt' and os.path.exists('D:\\'):
+        os.environ.setdefault("HF_HOME", "D:/hf_cache")
+        os.environ.setdefault("TORCH_HOME", "D:/torch_cache")
+        os.environ.setdefault("SENTENCE_TRANSFORMERS_HOME", "D:/hf_cache")
 
     # LLM Settings
     GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
