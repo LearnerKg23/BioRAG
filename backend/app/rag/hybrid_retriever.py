@@ -43,17 +43,27 @@ class BioHybridRetriever:
         lambda_mult: float = 0.7,
     ) -> List[DocumentChunk]:
         """Execute retrieval using specified strategy and return top K DocumentChunks."""
-        if mode == RetrievalMode.BM25_ONLY:
+        has_faiss = self.faiss_manager.vectorstore is not None
+        has_bm25 = self.bm25_manager.retriever is not None
+
+        # Fallback if both indices are empty
+        if not has_faiss and not has_bm25:
+            logger.info("Neither FAISS nor BM25 index is loaded; returning empty context.")
+            return []
+
+        # If user asked for BM25 or only BM25 is available
+        if mode == RetrievalMode.BM25_ONLY or (not has_faiss and has_bm25):
             retriever = self.bm25_manager.as_retriever(k=k)
             docs = retriever.invoke(query)
             return self._docs_to_chunks(docs[:k])
 
-        elif mode == RetrievalMode.FAISS_COSINE:
+        # If user asked for FAISS cosine or only FAISS is available
+        elif mode == RetrievalMode.FAISS_COSINE or (has_faiss and not has_bm25 and mode != RetrievalMode.FAISS_MMR):
             retriever = self.faiss_manager.as_similarity_retriever(k=k)
             docs = retriever.invoke(query)
             return self._docs_to_chunks(docs[:k])
 
-        elif mode == RetrievalMode.FAISS_MMR:
+        elif mode == RetrievalMode.FAISS_MMR or (has_faiss and not has_bm25):
             retriever = self.faiss_manager.as_mmr_retriever(k=k, fetch_k=fetch_k, lambda_mult=lambda_mult)
             docs = retriever.invoke(query)
             return self._docs_to_chunks(docs[:k])
