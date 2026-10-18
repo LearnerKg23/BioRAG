@@ -55,3 +55,4 @@ frontend/build/
 *.swo
 .DS_Store
 Thumbs.db
+*.bat
